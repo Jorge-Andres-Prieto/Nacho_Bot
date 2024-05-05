@@ -13,12 +13,13 @@ if "first_message" not in st.session_state:
 # Configurar las claves de API de OpenAI usando el módulo secrets de Streamlit
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# Función para obtener respuestas del modelo de OpenAI con manejo de excepciones
+# Función para obtener respuestas del modelo de OpenAI usando la nueva API
 def get_response(message):
     try:
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": message}]
+            messages=[{"role": "system", "content": "You are a helpful assistant."},
+                      {"role": "user", "content": message}]
         )
         return response['choices'][0]['message']['content']
     except Exception as e:
