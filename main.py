@@ -19,7 +19,8 @@ def get_response(message):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "system", "content": "You are a helpful assistant."},
-                      {"role": "user", "content": message}]
+                      {"role": "user", "content": message}],
+            temperature=0.5
         )
         return response['choices'][0]['message']['content']
     except Exception as e:
