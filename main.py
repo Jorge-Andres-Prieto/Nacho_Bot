@@ -15,14 +15,16 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # Función para obtener respuestas del modelo de OpenAI usando la nueva API
 def get_response(message):
+    client = openai.OpenAI()
     try:
-        response = openai.ChatCompletion.create(
+        completion = client.chat.completions.create(
             model="gpt-3.5-turbo",
-            messages=[{"role": "system", "content": "You are a helpful assistant."},
-                      {"role": "user", "content": message}],
-            temperature=0.5
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": message}
+            ]
         )
-        return response['choices'][0]['message']['content']
+        return completion.choices[0].message['content']
     except Exception as e:
         return f"Ocurrió un error: {e}"
 
