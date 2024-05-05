@@ -1,33 +1,32 @@
 import streamlit as st
+from openai import OpenAI
 import openai
 
-# Configuración de la API de OpenAI utilizando los secrets
-openai.api_key = st.secrets["openai"]["api_key"]
+# Configurar las claves de API de OpenAI usando el módulo secrets de Streamlit
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-def get_openai_response(user_input):
-    """
-    Esta función toma la entrada del usuario y devuelve la respuesta del modelo de OpenAI.
-    """
+
+# Inicializar el chatbot
+def get_response(message):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "Soy NachoBot, aquí para responder tus preguntas sobre la Universidad Nacional sede Medellín."},
-            {"role": "user", "content": user_input}
-        ]
+        messages=[{"role": "user", "content": message}]
     )
-    return response.choices[0].message['content']
+    return response['choices'][0]['message']['content']
 
-def main():
-    """
-    Función principal que ejecuta la aplicación de Streamlit.
-    """
-    st.title('NachoBot - Universidad Nacional de Colombia sede Medellín')
-    user_input = st.text_input("Hazme una pregunta sobre la universidad:")
 
-    if st.button("Enviar"):
-        if user_input:
-            respuesta = get_openai_response(user_input)
-            st.chat_message(message=respuesta, is_user=False)  # Muestra la respuesta del bot
+# Configurar la página
+st.title('NachoBot - Chatbot de la Universidad Nacional')
+st.write('Bienvenido al chatbot de la Universidad Nacional de Colombia sede Medellín. ¿En qué puedo ayudarte hoy?')
 
-if __name__ == "__main__":
-    main()
+# Caja de entrada de mensajes
+user_input = st.text_input("Escribe tu pregunta aquí:")
+
+# Mostrar y manejar la conversación
+if user_input:
+    # Obtener la respuesta del modelo
+    bot_response = get_response(user_input)
+
+    # Simular el chat
+    st.chat_message(user="Tú", message=user_input)
+    st.chat_message(user="NachoBot", message=bot_response)
