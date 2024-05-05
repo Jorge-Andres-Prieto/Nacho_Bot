@@ -1,5 +1,4 @@
 import streamlit as st
-from openai import OpenAI
 import openai
 
 # Configurar las claves de API de OpenAI usando el módulo secrets de Streamlit
