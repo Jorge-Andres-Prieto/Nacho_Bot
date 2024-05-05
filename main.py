@@ -1,11 +1,19 @@
 import streamlit as st
 import openai
 
+# Configurar el título de la aplicación de Streamlit
+st.title('🤖 NachoBot')
+
+# Inicializa el estado de la sesión para almacenar mensajes
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+if "first_message" not in st.session_state:
+    st.session_state.first_message = True
+
 # Configurar las claves de API de OpenAI usando el módulo secrets de Streamlit
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-
-# Inicializar el chatbot
+# Función para obtener respuestas del modelo de OpenAI
 def get_response(message):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -13,19 +21,27 @@ def get_response(message):
     )
     return response['choices'][0]['message']['content']
 
+# Envía el primer mensaje del asistente si es la primera interacción
+if st.session_state.first_message:
+    with st.chat_message("assistant"):
+        st.markdown("Hola, ¿cómo puedo ayudarte?")
+    st.session_state.messages.append({
+        "role": "assistant", "content": "Hola, ¿cómo puedo ayudarte?"
+    })
+    st.session_state.first_message = False
 
-# Configurar la página
-st.title('NachoBot - Chatbot de la Universidad Nacional')
-st.write('Bienvenido al chatbot de la Universidad Nacional de Colombia sede Medellín. ¿En qué puedo ayudarte hoy?')
+# Captura y maneja la entrada del usuario
+prompt = st.chat_input("¿Cómo puedo ayudarte?")
+if prompt:
+    # Agrega y muestra el mensaje del usuario
+    with st.chat_message("user"):
+        st.markdown(prompt)
+    st.session_state.messages.append({"role": "user", "content": prompt})
 
-# Caja de entrada de mensajes
-user_input = st.text_input("Escribe tu pregunta aquí:")
+    # Obtener respuesta del modelo OpenAI
+    response = get_response(prompt)
 
-# Mostrar y manejar la conversación
-if user_input:
-    # Obtener la respuesta del modelo
-    bot_response = get_response(user_input)
-
-    # Simular el chat
-    st.chat_message(user="Tú", message=user_input)
-    st.chat_message(user="NachoBot", message=bot_response)
+    # Envía y muestra la respuesta del asistente
+    with st.chat_message("assistant"):
+        st.markdown(response)
+    st.session_state.messages.append({"role": "assistant", "content": response})
