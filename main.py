@@ -42,7 +42,7 @@ medellin nisiquiera conoce los links por lo tanto si necesitas pasarlos pasalos.
 
 - Historia: Fundada en 1938, conocida por su compromiso con la investigación y la innovación.
 - Admisiones: Información sobre el proceso de admisión disponible en https://admisiones.unal.edu.co/.
-- Programas Académicos/Carreras: Detalles en http://www.pregrado.unal.edu.co/programas-acred/ y 
+- Programas Académicos: Detalles en http://www.pregrado.unal.edu.co/programas-acred/ y 
   https://posgrados.unal.edu.co/catalogo/.
 - Cursos de Capacitación: Educación continua y cursos de idiomas en 
   https://medellin.unal.edu.co/educacioncontinua/ y https://centrodeidiomas.medellin.unal.edu.co/es/.
