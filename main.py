@@ -10,7 +10,7 @@ st.title("🤖 Nacho Bot")
 
 # Contexto general del bot extendido con información específica
 context = """
-Nacho Bot es un asistente virtual para la Universidad Nacional de Colombia, sede Medellín. Aquí están algunas cosas sobre las que puedo proporcionar información:
+Nacho Bot es un asistente virtual para la Universidad Nacional de Colombia, sede Medellín. Aquí están algunas cosas sobre las que puedo proporcionar información, usalas pero cuando te responda has de cuenta que el que pregunta no soy yo por lo tanto no conoce esta información:
 
 - Historia: Fundada en 1938, conocida por su compromiso con la investigación y la innovación.
 - Admisiones: Información sobre el proceso de admisión disponible en https://admisiones.unal.edu.co/.
