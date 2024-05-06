@@ -24,7 +24,7 @@ def get_response(message):
                 {"role": "user", "content": message}
             ]
         )
-        return completion.choices[0].message['content']
+        return completion['choices'][0]['message']['content']  # Corregido para acceder correctamente al contenido
     except Exception as e:
         return f"Ocurrió un error: {e}"
 
