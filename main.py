@@ -60,6 +60,8 @@ medellin nisiquiera conoce los links por lo tanto si necesitas pasarlos pasalos.
 - Facultad de Ciencias Humanas y Económicas: ofrece programas en Ciencia Política, Economía e Historia.
 - Facultad de Minas: ofrece ingenierías en Administrativa, Ambiental, Civil, Control, Minas y Metalurgia, 
   Petróleos, Sistemas e Informática, Eléctrica, Geológica, Industrial, Mecánica y Química.
+- Todas las carreras ofrecidas en cada facultad: las encuentras
+  en el siguiente link http://www.pregrado.unal.edu.co/programas-acred/
 - Calendario académico: El siguiente enlace es el enlace a la pagina donde puedes revisar 
   el calendario academico actual y de años anteriores 
   https://medellin.unal.edu.co/~secresed/index.php/documentos-oficiales/calendarios-academicos.html. 
