@@ -1,6 +1,5 @@
 import streamlit as st
 import openai
-from openai.error import APIError
 
 # Configuración de Streamlit
 st.set_page_config(page_title="NachoBot", page_icon=":robot_face:")
@@ -17,7 +16,7 @@ def ask_openai(question):
             max_tokens=150
         )
         return response.choices[0].text.strip()
-    except APIError as e:
+    except Exception as e:  # Uso de Exception para capturar cualquier error
         st.error(f"Error al conectar con OpenAI: {e}")
         return None
 
