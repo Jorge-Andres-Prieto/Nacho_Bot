@@ -36,12 +36,17 @@ if prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     # Procesa la entrada del usuario usando OpenAI GPT-3.5 Turbo
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "system", "content": "Estás hablando con NachoBot, un asistente virtual."},
-                  {"role": "user", "content": prompt}],
-        max_tokens=150
-    )
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "Estás hablando con NachoBot, un asistente virtual."},
+                {"role": "user", "content": "¿Cómo puedo ayudarte?"}
+            ],
+            max_tokens=150
+        )
+    except Exception as e:
+        print("Ocurrió un error al intentar generar una respuesta: ", e)
 
     # Envía y muestra la respuesta del asistente
     with st.chat_message("assistant"):
