@@ -1,32 +1,53 @@
+# Importa Streamlit para la interfaz de usuario
 import streamlit as st
+
+# Importa la clase OpenAI para acceder a la API
 from openai import OpenAI
 
-# Configuración inicial de Streamlit y OpenAI
+# Configura la página de Streamlit con título e ícono específico
 st.set_page_config(page_title="NachoBot", page_icon="🤖")
+
+# Recupera la clave API de OpenAI de las configuraciones secretas de Streamlit
 api_key = st.secrets["OPENAI_API_KEY"]
+
+# Crea un cliente de OpenAI usando la clave API
 client = OpenAI(api_key=api_key)
 
+# Establece el título de la página en Streamlit
 st.title("🤖 Nacho Bot")
 
-# Contexto general del bot extendido con información específica
+# Define el contexto inicial del chatbot con información relevante
 context = """
-Nacho Bot es un asistente virtual para la Universidad Nacional de Colombia, sede Medellín. Aquí están algunas cosas sobre las que puedo proporcionar información, usalas pero cuando te responda has de cuenta que el que pregunta no soy yo por lo tanto no conoce esta información de la universdiad nacional de Colombia sede medellin nisiquiera conoce los links por lo tanto si necesitas pasarlos pasalos.:
+Nacho Bot es un asistente virtual para la Universidad Nacional de Colombia, sede
+Medellín. Aquí están algunas cosas sobre las que puedo proporcionar información,
+usalas pero cuando te responda has de cuenta que el que pregunta no soy yo por lo
+tanto no conoce esta información de la universidad nacional de Colombia sede
+medellin nisiquiera conoce los links por lo tanto si necesitas pasarlos pasalos.
 
 - Historia: Fundada en 1938, conocida por su compromiso con la investigación y la innovación.
 - Admisiones: Información sobre el proceso de admisión disponible en https://admisiones.unal.edu.co/.
-- Programas Académicos: Detalles en http://www.pregrado.unal.edu.co/programas-acred/ y https://posgrados.unal.edu.co/catalogo/.
-- Cursos de Capacitación: Educación continua y cursos de idiomas en https://medellin.unal.edu.co/educacioncontinua/ y https://centrodeidiomas.medellin.unal.edu.co/es/.
-- Bienestar Universitario: Servicios de salud, deportes y cultura en https://bienestaruniversitario.medellin.unal.edu.co/.
-- Facultades: Información sobre programas en las facultades de Arquitectura, Ciencias, Ciencias Agrarias, Ciencias Humanas y Económicas, y Minas.
+- Programas Académicos: Detalles en http://www.pregrado.unal.edu.co/programas-acred/ y 
+  https://posgrados.unal.edu.co/catalogo/.
+- Cursos de Capacitación: Educación continua y cursos de idiomas en 
+  https://medellin.unal.edu.co/educacioncontinua/ y https://centrodeidiomas.medellin.unal.edu.co/es/.
+- Bienestar Universitario: Servicios de salud, deportes y cultura en 
+  https://bienestaruniversitario.medellin.unal.edu.co/.
+- Facultades: Información sobre programas en las facultades de 
+  Arquitectura, Ciencias, Ciencias Agrarias, Ciencias Humanas y Económicas, y Minas.
 - Biblioteca: Ubicación y servicios en https://bibliotecas.unal.edu.co/.
 - Registro y Matrícula: Proceso de registro y matrícula en https://registroymatricula.medellin.unal.edu.co/.
 - Trámites Académicos: Información sobre trámites en https://registroymatricula.medellin.unal.edu.co/.
 - Facultad de Arquitectura: ofrece programas en Arquitectura, Artes Plásticas y Construcción.
 - Facultad de Ciencias: incluye estudios en Estadística, Ingeniería Biológica, Ingeniería Física y Matemáticas.
-- Facultad de Ciencias Agrarias: puedes estudiar Ingeniería Agrícola, Ingeniería Agronómica, Ingeniería Forestal, Tecnología Forestal y Zootecnia.
+- Facultad de Ciencias Agrarias: puedes estudiar Ingeniería Agrícola, Ingeniería Agronómica, 
+  Ingeniería Forestal, Tecnología Forestal y Zootecnia.
 - Facultad de Ciencias Humanas y Económicas: ofrece programas en Ciencia Política, Economía e Historia.
-- Facultad de Minas: ofrece ingenierías en Administrativa, Ambiental, Civil, Control, Minas y Metalurgia, Petróleos, Sistemas e Informática, Eléctrica, Geológica, Industrial, Mecánica y Química.
-- Calendario académico: El siguiente enlace es el enlace a la pagina donde puedes revisar el calendario academico actual y de años anteriores https://medellin.unal.edu.co/~secresed/index.php/documentos-oficiales/calendarios-academicos.html.
+- Facultad de Minas: ofrece ingenierías en Administrativa, Ambiental, Civil, Control, Minas y Metalurgia, 
+  Petróleos, Sistemas e Informática, Eléctrica, Geológica, Industrial, Mecánica y Química.
+- Calendario académico: El siguiente enlace es el enlace a la pagina donde puedes revisar 
+  el calendario academico actual y de años anteriores 
+  https://medellin.unal.edu.co/~secresed/index.php/documentos-oficiales/calendarios-academicos.html. 
+  
 Mi objetivo es ayudar a estudiantes, profesores y visitantes proporcionando información precisa y actualizada.
 """
 
@@ -46,7 +67,10 @@ if "first_interaction" not in st.session_state or st.session_state.first_interac
     st.session_state.messages.append({"role": "assistant", "content": "Hola, ¿en qué puedo ayudarte?"})
     st.session_state.first_interaction = False
 
+# Crea un campo de entrada para recibir preguntas del usuario
 prompt = st.chat_input("¿Cómo puedo ayudarte?")
+
+# Procesa la entrada del usuario y genera respuestas
 if prompt:
     # Agrega y muestra el mensaje del usuario
     with st.chat_message("user"):
