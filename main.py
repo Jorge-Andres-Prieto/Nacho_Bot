@@ -2,9 +2,12 @@ import streamlit as st
 from openai import OpenAI
 
 # Configuración inicial de Streamlit y OpenAI
-st.set_page_config(page_title="NachoBot", page_icon="🤖", layout="centered")
+st.set_page_config(page_title="NachoBot", page_icon="🤖")
 api_key = st.secrets["OPENAI_API_KEY"]
 client = OpenAI(api_key=api_key)
+
+# Título de la aplicación en Streamlit
+st.title("🤖 NachoBot")
 
 # Inicializa el estado de la sesión para almacenar mensajes si aún no está hecho
 if "messages" not in st.session_state:
