@@ -41,12 +41,17 @@ if prompt:
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "Estás hablando con NachoBot, un asistente virtual."},
-                {"role": "user", "content": "¿Cómo puedo ayudarte?"}
+                {"role": "user", "content": prompt}
             ],
             max_tokens=150
         )
+        # Acceso correcto a 'content'
+        chat_response = response['choices'][0]['message']['content']
+        with st.chat_message("assistant"):
+            st.markdown(chat_response)
+        st.session_state.messages.append({"role": "assistant", "content": chat_response})
     except Exception as e:
-        print("Ocurrió un error al intentar generar una respuesta: ", e)
+        print("Error al procesar la respuesta: ", e)
 
     # Envía y muestra la respuesta del asistente
     with st.chat_message("assistant"):
