@@ -11,7 +11,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 def ask_openai(question):
     try:
         response = client.Completion.create(
-            engine="text-davinci-002",
+            model="text-davinci-002",
             prompt=question,
             max_tokens=150
         )
@@ -22,12 +22,36 @@ def ask_openai(question):
 
 # Interfaz de usuario
 st.title("Bienvenido a NachoBot")
-user_input = st.text_input("Hazme una pregunta:")
 
-if user_input:
-    with st.spinner('Pensando...'):
-        answer = ask_openai(user_input)
-        st.text_area("Respuesta:", value=answer, height=200)
+# Inicializa el historial de chat si no existe
+if 'history' not in st.session_state:
+    st.session_state.history = []
+
+# Entrada de chat del usuario
+chat_input = st.text_input("Hazme una pregunta:", key="chat_input")
+
+if chat_input:
+    # Guarda la pregunta del usuario en el historial
+    st.session_state.history.append({'role': 'user', 'message': chat_input})
+
+    # Procesa la pregunta y obtiene una respuesta
+    answer = ask_openai(chat_input)
+
+    if answer:
+        # Guarda la respuesta del bot en el historial
+        st.session_state.history.append({'role': 'assistant', 'message': answer})
+
+    # Limpia el input para la siguiente pregunta
+    st.session_state.chat_input = ""
+
+# Mostrar el historial de chat
+for message in st.session_state.history:
+    if message['role'] == 'user':
+        with st.chat_message('You'):
+            st.write(message['message'])
+    elif message['role'] == 'assistant':
+        with st.chat_message('NachoBot'):
+            st.write(message['message'])
 
 if __name__ == "__main__":
     st.main()
