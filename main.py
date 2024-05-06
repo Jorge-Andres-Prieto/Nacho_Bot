@@ -16,6 +16,20 @@ client = OpenAI(api_key=api_key)
 # Establece el título de la página en Streamlit
 st.title("🤖 Nacho Bot")
 
+# Define la barra lateral con información sobre el bot
+st.sidebar.title("Acerca de Nacho Bot")
+st.sidebar.info("""
+Nacho Bot es un asistente virtual que proporciona información sobre
+ la Universidad Nacional de Colombia, sede Medellín. Puedes preguntarle sobre:
+
+- Información general y historia de la universidad
+- Carreras ofrecidas
+- Detalles sobre admisiones y matrículas
+- Información de programas académicos y cursos
+- Servicios de bienestar universitario
+- Y mucho más!
+""")
+
 # Define el contexto inicial del chatbot con información relevante
 context = """
 Nacho Bot es un asistente virtual para la Universidad Nacional de Colombia, sede

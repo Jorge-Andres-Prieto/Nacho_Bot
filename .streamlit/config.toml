@@ -1,0 +1,3 @@
+# Configuración de Streamlit para usar el tema oscuro
+[theme]
+base = "dark"
