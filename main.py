@@ -1,59 +1,41 @@
 import streamlit as st
-import openai
+from openai import OpenAI
+import json
 
-# Configura el título de la aplicación de Streamlit
-st.title('🤖 NachoBot')
+# Configuración inicial de Streamlit y OpenAI
+st.set_page_config(page_title="NachoBot", layout="wide")
+api_key = st.secrets["OPENAI_API_KEY"]
+client = OpenAI(api_key=api_key)
 
-# Configura la API key de OpenAI
-openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# Inicializa el estado de la sesión para almacenar mensajes si aún no está hecho
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+def get_openai_response(user_input):
+    completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system",
+             "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
+            {"role": "user", "content": user_input}
+        ]
+    )
+    response = completion.choices[0].message
+    return response
 
-if "first_message" not in st.session_state:
-    st.session_state.first_message = True
 
-# Muestra los mensajes guardados en el estado de la sesión
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+# Interfaz del chat
+st.title("NachoBot")
+user_input = st.text_input("Ask NachoBot a question about Universidad Nacional de Colombia sede Medellín:", "")
 
-# Envía el primer mensaje del asistente si es la primera interacción
-if st.session_state.first_message:
-    welcome_message = "¡Hola! Soy NachoBot, aquí para responder tus preguntas sobre la Universidad Nacional de Colombia sede Medellín."
-    with st.chat_message("assistant"):
-        st.markdown(welcome_message)
-    st.session_state.messages.append({"role": "assistant", "content": welcome_message})
-    st.session_state.first_message = False
+if user_input:
+    if "chat_history" not in st.session_state:
+        st.session_state["chat_history"] = []
+    st.session_state["chat_history"].append({"role": "user", "content": user_input})
 
-# Captura y maneja la entrada del usuario
-prompt = st.chat_input("¿Cómo puedo ayudarte?")
-if prompt:
-    # Agrega y muestra el mensaje del usuario
-    with st.chat_message("user"):
-        st.markdown(prompt)
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    response = get_openai_response(user_input)
+    st.session_state["chat_history"].append({"role": "assistant", "content": response})
 
-    # Procesa la entrada del usuario usando OpenAI GPT-3.5 Turbo
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "Estás hablando con NachoBot, un asistente virtual."},
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=150
-        )
-        # Acceso correcto a 'content'
-        chat_response = response['choices'][0]['message']['content']
-        with st.chat_message("assistant"):
-            st.markdown(chat_response)
-        st.session_state.messages.append({"role": "assistant", "content": chat_response})
-    except Exception as e:
-        print("Error al procesar la respuesta: ", e)
+    for message in st.session_state["chat_history"]:
+        st.chat_message(message["content"], is_user=True if message["role"] == "user" else False)
 
-    # Envía y muestra la respuesta del asistente
-    with st.chat_message("assistant"):
-        st.markdown(response['choices'][0]['message']['content'])
-    st.session_state.messages.append({"role": "assistant", "content": response['choices'][0]['message']['content']})
+# Guardando la historia de chat en la sesión para mantener el estado del chat
+if "chat_history" not in st.session_state:
+    st.session_state["chat_history"] = []
