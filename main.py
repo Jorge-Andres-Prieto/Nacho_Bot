@@ -1,12 +1,14 @@
+# nacho_bot.py
 import streamlit as st
 from openai import OpenAI
+from university_info import get_information
 
 # Configuración inicial de Streamlit y OpenAI
 st.set_page_config(page_title="NachoBot", page_icon="🤖")
 api_key = st.secrets["OPENAI_API_KEY"]
 client = OpenAI(api_key=api_key)
 
-st.title(" 🤖 Nacho Bot")
+st.title("🤖 Nacho Bot")
 
 # Inicializa el estado de la sesión para almacenar mensajes si aún no está hecho
 if "messages" not in st.session_state:
@@ -31,15 +33,8 @@ if prompt:
         st.markdown(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    # Obtener respuesta de OpenAI
-    completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are an assistant skilled in university related queries."},
-            {"role": "user", "content": prompt}
-        ]
-    )
-    response = completion.choices[0].message.content
+    # Intenta buscar la información localmente antes de preguntar a OpenAI
+    response = get_information(prompt)
 
     # Envía y muestra la respuesta del asistente
     with st.chat_message("assistant"):
