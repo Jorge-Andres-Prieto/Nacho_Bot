@@ -7,51 +7,39 @@ st.set_page_config(page_title="NachoBot", page_icon=":robot_face:")
 # Cliente de OpenAI
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# Función para enviar y recibir respuestas del modelo de OpenAI
-def ask_openai(question):
-    try:
-        response = openai.Completion.create(
-            model="text-davinci-002",  # Asegúrate de que el modelo sea correcto
-            prompt=question,
-            max_tokens=150
+# Inicialización del historial de chat
+if 'chat_history' not in st.session_state:
+    st.session_state['chat_history'] = []
+
+def send_query():
+    user_input = st.session_state.user_input
+    if user_input:
+        # Añadir mensaje del usuario al historial
+        st.session_state.chat_history.append({"role": "user", "content": user_input})
+
+        # Llamar al modelo de OpenAI
+        responses = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=st.session_state.chat_history,
+            max_tokens=100,
+            stop=None
         )
-        return response.choices[0].text.strip()
-    except Exception as e:  # Uso de Exception para capturar cualquier error
-        st.error(f"Error al conectar con OpenAI: {e}")
-        return None
 
-# Interfaz de usuario
-st.title("Bienvenido a NachoBot")
+        # Añadir la respuesta al historial
+        assistant_reply = responses["choices"][0]["message"]["content"]
+        st.session_state.chat_history.append({"role": "assistant", "content": assistant_reply})
 
-# Inicializa el historial de chat si no existe
-if 'history' not in st.session_state:
-    st.session_state.history = []
+        # Mostrar la respuesta
+        st.session_state.display_text += f"\n\nYou: {user_input}\nNachoBot: {assistant_reply}"
 
-# Entrada de chat del usuario
-chat_input = st.text_input("Hazme una pregunta:", key="chat_input")
+# Entrada de usuario
+st.text_input("Enter a prompt:", key="user_input", on_change=send_query)
 
-if chat_input:
-    # Guarda la pregunta del usuario en el historial
-    st.session_state.history.append({'role': 'user', 'message': chat_input})
+# Botón para enviar la consulta
+st.button("Send", on_click=send_query)
 
-    # Procesa la pregunta y obtiene una respuesta
-    answer = ask_openai(chat_input)
+# Mostrar el chat
+if 'display_text' not in st.session_state:
+    st.session_state.display_text = ""
 
-    if answer:
-        # Guarda la respuesta del bot en el historial
-        st.session_state.history.append({'role': 'assistant', 'message': answer})
-
-    # Limpia el input para la siguiente pregunta
-    st.session_state.chat_input = ""
-
-# Mostrar el historial de chat
-for message in st.session_state.history:
-    if message['role'] == 'user':
-        with st.chat_message('You'):
-            st.write(message['message'])
-    elif message['role'] == 'assistant':
-        with st.chat_message('NachoBot'):
-            st.write(message['message'])
-
-if __name__ == "__main__":
-    st.main()
+st.markdown(st.session_state.display_text)
