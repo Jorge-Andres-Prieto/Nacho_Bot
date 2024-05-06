@@ -39,7 +39,7 @@ if prompt:
             {"role": "user", "content": prompt}
         ]
     )
-    response = completion.choices[0].message['content']  # Aseguramos de usar solo el contenido
+    response = completion.choices[0].message
 
     # Envía y muestra la respuesta del asistente
     with st.chat_message("assistant"):
