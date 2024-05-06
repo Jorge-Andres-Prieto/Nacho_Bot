@@ -19,19 +19,17 @@ st.title("🤖 Nacho Bot")
 # Define la barra lateral con información sobre el bot utilizando Markdown para mejorar la presentación
 st.sidebar.title("Acerca de Nacho Bot")
 st.sidebar.markdown("""
-**Nacho Bot** es un asistente virtual que proporciona información sobre la **Universidad Nacional de Colombia, sede Medellín**. Aquí tienes algunos de los temas sobre los que puedes preguntar:
+**Nacho Bot** es un asistente virtual para la **Universidad Nacional de Colombia, sede Medellín**. Puedes preguntar sobre:
 
-1. **Información General y Historia de la Universidad**: Conoce más sobre nuestra rica historia y contribuciones académicas.
-2. **Carreras Ofrecidas**: Explora la diversidad de programas académicos disponibles para pregrado y posgrado.
-3. **Detalles sobre Admisiones y Matrículas**: Obtén información sobre el proceso de admisión, fechas importantes y requisitos.
-4. **Programas Académicos y Cursos**: Descubre nuestros programas académicos, cursos de extensión y educación continua.
-5. **Servicios de Bienestar Universitario**: Infórmate sobre los servicios de apoyo al estudiante, actividades culturales y deportivas.
-6. **Biblioteca y Recursos de Aprendizaje**: Aprovecha nuestros recursos de biblioteca y materiales de estudio.
-
-Para más detalles, visita nuestro [sitio web](https://unal.edu.co).
+- **Historia de la universidad**
+- **Carreras ofrecidas**
+- **Admisiones y matrículas**
+- **Programas académicos y cursos**
+- **Servicios de bienestar universitario**
 
 **¿En qué puedo ayudarte hoy?**
-""", unsafe_allow_html=True)
+""")
+
 
 
 # Define el contexto inicial del chatbot con información relevante
