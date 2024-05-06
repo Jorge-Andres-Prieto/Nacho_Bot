@@ -1,5 +1,5 @@
 import streamlit as st
-from openai import OpenAI
+from openai import OpenAI, OpenAIError
 
 # Configuración de Streamlit
 st.set_page_config(page_title="NachoBot", page_icon=":robot_face:")
@@ -16,8 +16,8 @@ def ask_openai(question):
             max_tokens=150
         )
         return response.choices[0].text.strip()
-    except Exception as e:
-        st.error("Error al conectar con OpenAI: " + str(e))
+    except OpenAIError as e:
+        st.error(f"Error al conectar con OpenAI: {e}")
         return None
 
 # Interfaz de usuario
@@ -29,6 +29,5 @@ if user_input:
         answer = ask_openai(user_input)
         st.text_area("Respuesta:", value=answer, height=200)
 
-# Principal
 if __name__ == "__main__":
     st.main()
