@@ -42,7 +42,7 @@ medellin nisiquiera conoce los links por lo tanto si necesitas pasarlos pasalos.
 
 - Historia: Fundada en 1938, conocida por su compromiso con la investigación y la innovación.
 - Admisiones: Información sobre el proceso de admisión disponible en https://admisiones.unal.edu.co/.
-- Programas Académicos: Detalles en http://www.pregrado.unal.edu.co/programas-acred/ y 
+- Programas Académicos/Carreras: Detalles en http://www.pregrado.unal.edu.co/programas-acred/ y 
   https://posgrados.unal.edu.co/catalogo/.
 - Cursos de Capacitación: Educación continua y cursos de idiomas en 
   https://medellin.unal.edu.co/educacioncontinua/ y https://centrodeidiomas.medellin.unal.edu.co/es/.
@@ -60,8 +60,6 @@ medellin nisiquiera conoce los links por lo tanto si necesitas pasarlos pasalos.
 - Facultad de Ciencias Humanas y Económicas: ofrece programas en Ciencia Política, Economía e Historia.
 - Facultad de Minas: ofrece ingenierías en Administrativa, Ambiental, Civil, Control, Minas y Metalurgia, 
   Petróleos, Sistemas e Informática, Eléctrica, Geológica, Industrial, Mecánica y Química.
-- Todas las carreras ofrecidas en cada facultad: las encuentras
-  en el siguiente link http://www.pregrado.unal.edu.co/programas-acred/
 - Calendario académico: El siguiente enlace es el enlace a la pagina donde puedes revisar 
   el calendario academico actual y de años anteriores 
   https://medellin.unal.edu.co/~secresed/index.php/documentos-oficiales/calendarios-academicos.html. 
