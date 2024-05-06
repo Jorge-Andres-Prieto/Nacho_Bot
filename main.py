@@ -1,7 +1,5 @@
-# nacho_bot.py
 import streamlit as st
 from openai import OpenAI
-from university_info import get_information
 
 # Configuración inicial de Streamlit y OpenAI
 st.set_page_config(page_title="NachoBot", page_icon="🤖")
@@ -9,6 +7,23 @@ api_key = st.secrets["OPENAI_API_KEY"]
 client = OpenAI(api_key=api_key)
 
 st.title("🤖 Nacho Bot")
+
+# Contexto general del bot extendido con información específica
+context = """
+Nacho Bot es un asistente virtual para la Universidad Nacional de Colombia, sede Medellín. Aquí están algunas cosas sobre las que puedo proporcionar información:
+
+- Historia: Fundada en 1938, conocida por su compromiso con la investigación y la innovación.
+- Admisiones: Información sobre el proceso de admisión disponible en https://admisiones.unal.edu.co/.
+- Programas Académicos: Detalles en http://www.pregrado.unal.edu.co/programas-acred/ y https://posgrados.unal.edu.co/catalogo/.
+- Cursos de Capacitación: Educación continua y cursos de idiomas en https://medellin.unal.edu.co/educacioncontinua/ y https://centrodeidiomas.medellin.unal.edu.co/es/.
+- Bienestar Universitario: Servicios de salud, deportes y cultura en https://bienestaruniversitario.medellin.unal.edu.co/.
+- Facultades: Información sobre programas en las facultades de Arquitectura, Ciencias, Ciencias Agrarias, Ciencias Humanas y Económicas, y Minas.
+- Biblioteca: Ubicación y servicios en https://bibliotecas.unal.edu.co/.
+- Registro y Matrícula: Proceso de registro y matrícula en https://registroymatricula.medellin.unal.edu.co/.
+- Trámites Académicos: Información sobre trámites en https://registroymatricula.medellin.unal.edu.co/.
+
+Mi objetivo es ayudar a estudiantes, profesores y visitantes proporcionando información precisa y actualizada.
+"""
 
 # Inicializa el estado de la sesión para almacenar mensajes si aún no está hecho
 if "messages" not in st.session_state:
@@ -33,8 +48,15 @@ if prompt:
         st.markdown(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    # Intenta buscar la información localmente antes de preguntar a OpenAI
-    response = get_information(prompt)
+    # Obtener respuesta de OpenAI con el contexto incluido
+    completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": context},
+            {"role": "user", "content": prompt}
+        ]
+    )
+    response = completion.choices[0].message.content
 
     # Envía y muestra la respuesta del asistente
     with st.chat_message("assistant"):
