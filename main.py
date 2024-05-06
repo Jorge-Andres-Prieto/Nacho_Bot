@@ -26,7 +26,7 @@ Nacho Bot es un asistente virtual para la Universidad Nacional de Colombia, sede
 - Facultad de Ciencias Agrarias: puedes estudiar Ingeniería Agrícola, Ingeniería Agronómica, Ingeniería Forestal, Tecnología Forestal y Zootecnia.
 - Facultad de Ciencias Humanas y Económicas: ofrece programas en Ciencia Política, Economía e Historia.
 - Facultad de Minas: ofrece ingenierías en Administrativa, Ambiental, Civil, Control, Minas y Metalurgia, Petróleos, Sistemas e Informática, Eléctrica, Geológica, Industrial, Mecánica y Química.
-
+- Calendario académico: El siguiente enlace es el enlace a la pagina donde puedes revisar el calendario academico actual y de años anteriores https://medellin.unal.edu.co/~secresed/index.php/documentos-oficiales/calendarios-academicos.html.
 Mi objetivo es ayudar a estudiantes, profesores y visitantes proporcionando información precisa y actualizada.
 """
 
