@@ -4,44 +4,35 @@ import openai
 # Configurar el título de la aplicación de Streamlit
 st.title('🤖 NachoBot')
 
-# Inicializa el estado de la sesión para almacenar mensajes
+# Inicializar el estado de la sesión para almacenar mensajes y la historia de la conversación
 if "messages" not in st.session_state:
     st.session_state.messages = []
-if "first_message" not in st.session_state:
-    st.session_state.first_message = True
+if "conversation_history" not in st.session_state:
+    st.session_state.conversation_history = [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "assistant", "content": "Hola, ¿cómo puedo ayudarte?"}
+    ]
 
 # Configurar las claves de API de OpenAI usando el módulo secrets de Streamlit
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# Función para obtener respuestas del modelo de OpenAI usando la nueva API
+# Función para obtener respuestas del modelo de OpenAI
 def get_response(message):
-    client = openai.OpenAI()
     try:
-        completion = client.chat.completions.create(
+        st.session_state.conversation_history.append({"role": "user", "content": message})
+        response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": message}
-            ]
+            messages=st.session_state.conversation_history
         )
-        # Ajustamos para acceder al contenido de la respuesta de forma correcta
-        return completion.choices[0].message['content']
+        reply = response.choices[0].message['content']
+        st.session_state.conversation_history.append({"role": "assistant", "content": reply})
+        return reply
     except Exception as e:
         return f"Ocurrió un error: {e}"
-
-# Envía el primer mensaje del asistente si es la primera interacción
-if st.session_state.first_message:
-    with st.chat_message("assistant"):
-        st.markdown("Hola, ¿cómo puedo ayudarte?")
-    st.session_state.messages.append({
-        "role": "assistant", "content": "Hola, ¿cómo puedo ayudarte?"
-    })
-    st.session_state.first_message = False
 
 # Captura y maneja la entrada del usuario
 prompt = st.chat_input("¿Cómo puedo ayudarte?")
 if prompt:
-    # Agrega y muestra el mensaje del usuario
     with st.chat_message("user"):
         st.markdown(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
