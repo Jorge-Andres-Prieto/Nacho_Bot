@@ -1,42 +1,38 @@
 import streamlit as st
 from openai import OpenAI
-import json
 
 # Configuración inicial de Streamlit y OpenAI
 st.set_page_config(page_title="NachoBot", layout="wide")
 api_key = st.secrets["OPENAI_API_KEY"]
 client = OpenAI(api_key=api_key)
 
-def get_openai_response(user_input):
+# Inicializa el estado de la sesión para almacenar mensajes si aún no está hecho
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# Muestra los mensajes guardados en el estado de la sesión
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+prompt = st.chat_input("¿Cómo puedo ayudarte?")
+if prompt:
+    # Agrega y muestra el mensaje del usuario
+    with st.chat_message("user"):
+        st.markdown(prompt)
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+    # Obtener respuesta de OpenAI
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
-            {"role": "user", "content": user_input}
+            {"role": "system", "content": "You are an assistant skilled in university related queries."},
+            {"role": "user", "content": prompt}
         ]
     )
     response = completion.choices[0].message
-    return response
 
-# Interfaz del chat
-st.title("NachoBot")
-user_input = st.text_input("Ask NachoBot a question about Universidad Nacional de Colombia sede Medellín:", "")
-
-if user_input:
-    if "chat_history" not in st.session_state:
-        st.session_state["chat_history"] = []
-    st.session_state["chat_history"].append({"role": "user", "content": user_input})
-
-    response = get_openai_response(user_input)
-    st.session_state["chat_history"].append({"role": "assistant", "content": response})
-
-    for message in st.session_state["chat_history"]:
-        # Aseguramos que cada mensaje se maneje adecuadamente
-        if message["role"] == "user":
-            st.chat_message(message["content"], is_user=True)
-        else:
-            st.chat_message(message["content"], is_user=False)
-
-# Guardando la historia de chat en la sesión para mantener el estado del chat
-if "chat_history" not in st.session_state:
-    st.session_state["chat_history"] = []
+    # Envía y muestra la respuesta del asistente
+    with st.chat_message("assistant"):
+        st.markdown(response)
+    st.session_state.messages.append({"role": "assistant", "content": response})
