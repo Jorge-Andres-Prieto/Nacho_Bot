@@ -1,22 +1,23 @@
 import streamlit as st
-from openai import OpenAI, OpenAIError
+import openai
+from openai.error import APIError
 
 # Configuración de Streamlit
 st.set_page_config(page_title="NachoBot", page_icon=":robot_face:")
 
 # Cliente de OpenAI
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # Función para enviar y recibir respuestas del modelo de OpenAI
 def ask_openai(question):
     try:
-        response = client.Completion.create(
-            model="text-davinci-002",
+        response = openai.Completion.create(
+            model="text-davinci-002",  # Asegúrate de que el modelo sea correcto
             prompt=question,
             max_tokens=150
         )
         return response.choices[0].text.strip()
-    except OpenAIError as e:
+    except APIError as e:
         st.error(f"Error al conectar con OpenAI: {e}")
         return None
 
