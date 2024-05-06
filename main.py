@@ -1,39 +1,34 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 
-# Configurar el título de la aplicación de Streamlit y la clave de API de OpenAI
-st.title('🤖 NachoBot')
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+# Configuración de Streamlit
+st.set_page_config(page_title="NachoBot", page_icon=":robot_face:")
 
-# Inicializar el estado de la sesión para almacenar los mensajes de la conversación
-if "conversation_history" not in st.session_state:
-    st.session_state.conversation_history = [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "assistant", "content": "Hola, ¿cómo puedo ayudarte?"}
-    ]
+# Cliente de OpenAI
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-# Función para obtener respuestas del modelo de OpenAI
-def get_response(message):
-    st.session_state.conversation_history.append({"role": "user", "content": message})
+# Función para enviar y recibir respuestas del modelo de OpenAI
+def ask_openai(question):
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=st.session_state.conversation_history
+        response = client.Completion.create(
+            engine="text-davinci-002",
+            prompt=question,
+            max_tokens=150
         )
-        reply = response.choices[0].message['content']
-        st.session_state.conversation_history.append({"role": "assistant", "content": reply})
-        return reply
+        return response.choices[0].text.strip()
     except Exception as e:
-        return f"Ocurrió un error: {e}"
+        st.error("Error al conectar con OpenAI: " + str(e))
+        return None
 
-# Interfaz de usuario para entrada de chat
-prompt = st.chat_input("¿Cómo puedo ayudarte?")
-if prompt:
-    with st.chat_message("user"):
-        st.markdown(prompt)
-    st.session_state.messages.append({"role": "user", "content": prompt})
+# Interfaz de usuario
+st.title("Bienvenido a NachoBot")
+user_input = st.text_input("Hazme una pregunta:")
 
-    response = get_response(prompt)
-    with st.chat_message("assistant"):
-        st.markdown(response)
-    st.session_state.messages.append({"role": "assistant", "content": response})
+if user_input:
+    with st.spinner('Pensando...'):
+        answer = ask_openai(user_input)
+        st.text_area("Respuesta:", value=answer, height=200)
+
+# Principal
+if __name__ == "__main__":
+    st.main()
