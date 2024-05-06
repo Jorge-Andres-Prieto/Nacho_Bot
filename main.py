@@ -53,13 +53,18 @@ medellin nisiquiera conoce los links por lo tanto si necesitas pasarlos pasalos.
 - Biblioteca: Ubicación y servicios en https://bibliotecas.unal.edu.co/.
 - Registro y Matrícula: Proceso de registro y matrícula en https://registroymatricula.medellin.unal.edu.co/.
 - Trámites Académicos: Información sobre trámites en https://registroymatricula.medellin.unal.edu.co/.
-- Facultad de Arquitectura: ofrece programas en Arquitectura, Artes Plásticas y Construcción.
-- Facultad de Ciencias: incluye estudios en Estadística, Ingeniería Biológica, Ingeniería Física y Matemáticas.
+- Facultad de Arquitectura: ofrece programas en Arquitectura, Artes Plásticas y Construcción
+  mas información en: http://www.pregrado.unal.edu.co/programas-acred/.
+- Facultad de Ciencias: incluye estudios en Estadística, Ingeniería Biológica, Ingeniería Física y Matemáticas
+  mas información en: http://www.pregrado.unal.edu.co/programas-acred/..
 - Facultad de Ciencias Agrarias: puedes estudiar Ingeniería Agrícola, Ingeniería Agronómica, 
-  Ingeniería Forestal, Tecnología Forestal y Zootecnia.
-- Facultad de Ciencias Humanas y Económicas: ofrece programas en Ciencia Política, Economía e Historia.
+  Ingeniería Forestal, Tecnología Forestal y Zootecnia
+  mas información en: http://www.pregrado.unal.edu.co/programas-acred/..
+- Facultad de Ciencias Humanas y Económicas: ofrece programas en Ciencia Política, Economía e Historia
+  mas información en: http://www.pregrado.unal.edu.co/programas-acred/..
 - Facultad de Minas: ofrece ingenierías en Administrativa, Ambiental, Civil, Control, Minas y Metalurgia, 
-  Petróleos, Sistemas e Informática, Eléctrica, Geológica, Industrial, Mecánica y Química.
+  Petróleos, Sistemas e Informática, Eléctrica, Geológica, Industrial, Mecánica y Química
+  mas información en: http://www.pregrado.unal.edu.co/programas-acred/..
 - Calendario académico: El siguiente enlace es el enlace a la pagina donde puedes revisar 
   el calendario academico actual y de años anteriores 
   https://medellin.unal.edu.co/~secresed/index.php/documentos-oficiales/calendarios-academicos.html. 
