@@ -1,21 +1,44 @@
 <h1 align="center">NachoBot</h1>
 
-<h3 id="acceso-a-la-aplicación">Dale clic para ir a la APP ---> <a href="https://nachobot.streamlit.app/">NachoBot</a></h3>
+<h3 align="center">Dale clic para ir a la App</h3>
+<p align="center">
+  <a href="https://nachobot.streamlit.app/">
+    <img src="https://img.shields.io/badge/NachoBot-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="NachoBot" style="vertical-align: middle;">
+  </a>
+</p>
 
-<h3>Tabla de Contenido</h3>
+<h3>🗂️ Tabla de Contenido</h3>
 <ul>
   <li><a href="#acerca-de-la-aplicación">Acerca de la Aplicación</a></li>
   <li><a href="#cómo-funciona">Cómo Funciona</a></li>
+  <li><a href="#uso-de-tecnologías">Uso de Tecnologías</a></li>
+  <li><a href="#buy-me-a-coffee">Buy Me a Coffee</a></li>
   <li><a href="#contacto">Contacto</a></li>
 </ul>
 
-<h3 id="acerca-de-la-aplicación">Acerca de la Aplicación</h3>
-<p>NachoBot es un chatbot diseñado para responder preguntas específicas sobre la Universidad Nacional de Colombia sede Medellín. Utiliza la API de OpenAI con ChatGPT-3.5 Turbo para generar respuestas que interpretan de manera efectiva el lenguaje humano, proporcionando información precisa y contextualizada basada en un contexto previamente establecido.</p>
+<h3 id="acerca-de-la-aplicación">📄 Acerca de la Aplicación</h3>
+<p><strong>NachoBot</strong> es un chatbot diseñado para responder preguntas específicas sobre la Universidad Nacional de Colombia sede Medellín. Utiliza la API de OpenAI con ChatGPT-3.5 Turbo para generar respuestas que interpretan de manera efectiva el lenguaje humano, proporcionando información precisa y contextualizada basada en un contexto previamente establecido.</p>
 
-<h3 id="cómo-funciona">Cómo Funciona</h3>
+<h3 id="cómo-funciona">⚙️ Cómo Funciona</h3>
 <p>NachoBot está integrado en una interfaz web desarrollada con Streamlit. Al interactuar con el bot, los usuarios pueden ingresar preguntas relacionadas con la universidad, y el sistema procesa estas entradas utilizando modelos avanzados de lenguaje natural para entregar respuestas coherentes y útiles.</p>
 
-<h3 id="contacto" align="center">Contacto</h3>
+<h3 id="uso-de-tecnologías">💻 Uso de Tecnologías</h3>
+<p>NachoBot utiliza las siguientes tecnologías:</p>
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"/>
+</p>
+
+<h3 id="buy-me-a-coffee">☕ Buy Me a Coffee</h3>
+<p>Si te gusta mi trabajo, puedes apoyarme invitándome a un café:</p>
+<p>
+  <a href="https://www.buymeacoffee.com/Andres.Jimenez">
+    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"/>
+  </a>
+</p>
+
+<h3 id="contacto" align="center">📬 Contacto</h3>
 <p align="center">
   <a href="https://www.linkedin.com/in/jorge-prieto-b36ab2250/"><img src="https://pngimg.com/uploads/linkedIn/linkedIn_PNG37.png" alt="LinkedIn" width="50" style="margin-right: 20px;"></a>
   <a href="https://www.fiverr.com/andres__jimenez?public_mode=true"><img src="https://freelogopng.com/images/all_img/1656738600fiverr-app-logo.png" alt="Fiverr" width="50" style="margin-right: 20px;"></a>
